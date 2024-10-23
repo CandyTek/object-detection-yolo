@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-    ndkVersion "21.1.6352462"
+    compileSdkVersion 33
+    
+//    ndkVersion "21.1.6352462"
 
     defaultConfig {
         applicationId "dev.smoketrees.object_detection_yolo"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -19,8 +18,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            debuggable true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -28,23 +28,32 @@ android {
     aaptOptions {
         noCompress "tflite"
     }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.9.0'
 
     // Permissions handling
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
 
     // Tensorflow lite
-    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly'
+    implementation 'org.tensorflow:tensorflow-lite:2.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+//implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+//implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly'
 
     // CameraView
-    implementation 'com.otaliastudios:cameraview:2.6.2'
+    implementation 'com.otaliastudios:cameraview:2.7.2'
+    implementation "org.jetbrains.anko:anko:0.10.8"
+
 }

@@ -11,11 +11,10 @@ import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
 import com.otaliastudios.cameraview.gesture.Gesture
 import com.otaliastudios.cameraview.gesture.GestureAction
-import dev.smoketrees.object_detection_yolo.R
-import kotlinx.android.synthetic.main.activity_camera.*
-
+import dev.smoketrees.object_detection_yolo.databinding.ActivityCameraBinding
 
 class CameraActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +23,20 @@ class CameraActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_camera)
+        setContentView(binding.root)
         setupCamera()
 
-        cameraFab.setOnClickListener {
+        binding.cameraFab.setOnClickListener {
 
-            camera.takePicture()
+            binding.camera.takePicture()
         }
     }
 
     private fun setupCamera() {
-        camera.setLifecycleOwner(this)
-        camera.mapGesture(Gesture.PINCH, GestureAction.ZOOM)
-        camera.mapGesture(Gesture.TAP, GestureAction.AUTO_FOCUS)
-        camera.addCameraListener(object : CameraListener() {
+        binding.camera.setLifecycleOwner(this)
+        binding.camera.mapGesture(Gesture.PINCH, GestureAction.ZOOM)
+       binding. camera.mapGesture(Gesture.TAP, GestureAction.AUTO_FOCUS)
+       binding. camera.addCameraListener(object : CameraListener() {
             override fun onPictureTaken(result: PictureResult) {
                 super.onPictureTaken(result)
                 result.toBitmap {bitmap ->
